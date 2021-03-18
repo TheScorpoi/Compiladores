@@ -7,88 +7,86 @@ public class Exercicio2 {
 
     public static void main(String[] args) {
 
-        HashMap<String, Double> variaveis = new HashMap<>();
+        HashMap<String, Double> mapa = new HashMap<>();
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNext()) {
 
-            String op1 = sc.next();
+            String numero1 = sc.next();
             String operador = sc.next();
-            String op2 = sc.nextLine();
-            double result = 0;
-            op2 = op2.trim();
+            String numero2 = sc.next();
+            double resultado = 0;
+            numero2 = numero2.trim();
 
             switch (operador) {
             case "=":
-                if (op2.contains("+") || op2.contains("-") || op2.contains("*") || op2.contains("/")) {
-                    String[] op = op2.trim().split("\\s+");
+                if (numero2.contains("+") || numero2.contains("-") || numero2.contains("*") || numero2.contains("/")) {
+                    String[] caracter = numero2.trim().split("\\s+");
 
-                    if (variaveis.containsKey(op[0]) && !variaveis.containsKey(op[2])) {
-                        result = calcular(variaveis.get(op[0]), op[1], Double.valueOf(op[2]));
-                        variaveis.put(op1, result);
+                    if (mapa.containsKey(caracter[0]) && !mapa.containsKey(caracter[2])) {
+                        resultado = calcular(mapa.get(caracter[0]), caracter[1], Double.valueOf(caracter[2]));
+                        mapa.put(numero1, resultado);
 
-                    } else if (variaveis.containsKey(op[2]) && !variaveis.containsKey(op[0])) {
-                        result = calcular(Double.valueOf(op[0]), op[1], variaveis.get(op[2]));
-                        variaveis.put(op1, result);
+                    } else if (mapa.containsKey(caracter[2]) && !mapa.containsKey(caracter[0])) {
+                        resultado = calcular(Double.valueOf(caracter[0]), caracter[1], mapa.get(caracter[2]));
+                        mapa.put(numero1, resultado);
 
-                    } else if (variaveis.containsKey(op[0]) && variaveis.containsKey(op[2])) {
-                        result = calcular(variaveis.get(op[0]), op[1], variaveis.get(op[2]));
-                        variaveis.put(op1, result);
+                    } else if (mapa.containsKey(caracter[0]) && mapa.containsKey(caracter[2])) {
+                        resultado = calcular(mapa.get(caracter[0]), caracter[1], mapa.get(caracter[2]));
+                        mapa.put(numero1, resultado);
                     } else {
-                        result = calcular(Double.valueOf(op[0]), op[1], Double.valueOf(op[2]));
-                        variaveis.put(op1, result);
+                        resultado = calcular(Double.valueOf(caracter[0]), caracter[1], Double.valueOf(caracter[2]));
+                        mapa.put(numero1, resultado);
                     }
                 } else {
-                    variaveis.put(op1, Double.valueOf(op2));
-                    result = Double.valueOf(op2);
+                    mapa.put(numero1, Double.valueOf(numero2));
+                    resultado = Double.valueOf(numero2);
                 }
                 break;
 
             default:
-                if (variaveis.containsKey(op1) && !variaveis.containsKey(op2)) {
-                    result = calcular(variaveis.get(op1), operador, Double.valueOf(op2));
+                if (mapa.containsKey(numero1) && !mapa.containsKey(numero2)) {
+                    resultado = calcular(mapa.get(numero1), operador, Double.valueOf(numero2));
 
-                } else if (variaveis.containsKey(op2) && !variaveis.containsKey(op1)) {
-                    result = calcular(Double.valueOf(op1), operador, variaveis.get(op2));
+                } else if (mapa.containsKey(numero2) && !mapa.containsKey(numero1)) {
+                    resultado = calcular(Double.valueOf(numero1), operador, mapa.get(numero2));
 
-                } else if (variaveis.containsKey(op2) && variaveis.containsKey(op1)) {
-                    result = calcular(variaveis.get(op1), operador, variaveis.get(op2));
+                } else if (mapa.containsKey(numero2) && mapa.containsKey(numero1)) {
+                    resultado = calcular(mapa.get(numero1), operador, mapa.get(numero2));
                 } else {
-                    result = calcular(Double.valueOf(op1), operador, Double.valueOf(op2));
+                    resultado = calcular(Double.valueOf(numero1), operador, Double.valueOf(numero2));
                 }
             }
-
-            System.out.println("result = " + result);
+            System.out.println("resultado = " + resultado);
         }
-
         sc.close();
     }
 
+    public static double calcular(double numero1, String operador, double numero2) {
 
-    public static double calcular(double op1, String operador, double op2) {
-
-        double result = 0;
+        double resultado = 0;
         switch(operador) {
             case "+":
-                result = op1 + op2;
+                resultado = numero1 + numero2;
                 break;
 
             case "-":
-                result = op1 - op2;
+                resultado = numero1 - numero2;
                 break;
 
             case "*":
-                result = op1 * op2;
+                resultado = numero1 * numero2;
                 break;
 
             case "/":
-                result = op1 / op2;
+                resultado = numero1 / numero2;
                 break;
 
             default:
-                System.err.println("Erro: Operação inválida");
+                System.err.println("O operador introduzido é inválido");
+                System.exit(1);
         }
 
-        return result;
+        return resultado;
     }
 }
