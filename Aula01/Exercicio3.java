@@ -34,31 +34,25 @@ public class Exercicio3 {
 
         double resultado = 0, numero1, numero2;
         for (int i = 0; i < operador.size(); i++) {
+        	numero1 = stack.peek();stack.pop();
+               numero2 = stack.peek();stack.pop();
             switch (operador.get(i)) {
-            case "+":
-                numero1 = stack.peek();stack.pop();
-                numero2 = stack.peek();stack.pop();
+            case "+": 
                 resultado = numero1 + numero2;
                 stack.push(resultado);
                 System.out.println(Arrays.toString(stack.toArray()));
                 break;
             case "-":
-                numero1 = stack.peek();stack.pop();
-                numero2 = stack.peek();stack.pop();
                 resultado = numero1 - numero2;
                 stack.push(resultado);
                 System.out.println(Arrays.toString(stack.toArray()));
                 break;
             case "*":
-                numero1 = stack.peek();stack.pop();
-                numero2 = stack.peek();stack.pop();
                 resultado = numero1 * numero2;
                 stack.push(resultado);
                 System.out.println(Arrays.toString(stack.toArray()));
                 break;
             case "/":
-                numero1 = stack.peek();stack.pop();
-                numero2 = stack.peek();stack.pop();
                 resultado = numero1 / numero2;
                 stack.push(resultado);
                 System.out.println(Arrays.toString(stack.toArray()));

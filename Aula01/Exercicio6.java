@@ -30,7 +30,6 @@ public class Exercicio6 {
             }
             System.out.println();
 
-            //! so fiz até à alinea a)
             sc.close();
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
