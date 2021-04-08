@@ -1,0 +1,18 @@
+alinea a) e b), explicadas no outro "guiao"
+
+alinea c):
+    - Criar a regra: bye : "bye" ID ; Depois gerar antlr4-visitor Hello Execute String
+    - Fazer as alterações necessárias nas funções do Execute.java
+    - em Hello.g4 fazer a regra: option : greetings | bye ;
+    - Apos isto, é necessário ir à MainHello.java e alterar o greetings() para option()
+
+alinea d):
+    -Acrescentar um "+" a seguir a cada ID no Hello.g4
+    -Alteração das funções no Execute.java, de modo que o print seja em frase, e não numa lista
+    -basicamente, iterar sobre a lista, e printar cada palavra + " "
+
+alinea e):
+    - Acrescentar a regra: main : option* EOF ;
+    - Ir ao HelloMain.java e alterar o anteiror options() para main() 
+    - antlr4-build 
+    - Submeter uma frase com 'hello' e com 'bye', e ele funciona para as 2
