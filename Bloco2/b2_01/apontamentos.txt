@@ -16,3 +16,5 @@ alinea e):
     - Ir ao HelloMain.java e alterar o anteiror options() para main() 
     - antlr4-build 
     - Submeter uma frase com 'hello' e com 'bye', e ele funciona para as 2
+
+Para ler os ficheiros (p1.txt,...), pelo terminal é: antlr4-run < file 
