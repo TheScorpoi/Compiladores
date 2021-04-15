@@ -9,11 +9,13 @@ stat :
     ;
 
 expr : 
-        expr op=('*'|'/'|'%') expr  #ExprMultDivMod
+        op=('+'|'-') expr           #ExprUnario
+    |   expr op=('*'|'/'|'%') expr  #ExprMultDivMod
     |   expr op=('+'|'-')   expr    #ExprAddSub
     |   Integer                     #ExprInteger
-    | '(' expr ')'
+    | '(' expr ')'                  #ExprParent
     ;
+
 Integer : [0-9]+;      //implement with long integers
 NEWLINE : '\r'? '\n';
 WS : [ \t]+ -> skip;
