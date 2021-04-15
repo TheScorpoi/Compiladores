@@ -1,0 +1,14 @@
+criar gramaticas
+criar o visitor: antlr4-visitor Calculator Interpreter Long
+criar main: antlr4-main -v Interpreter.java -i
+depois ir ao Interpreter.java e fazer as funcoes para implementar a calculadora
+fazer antlr4-build
+fazer antlr4-run
+
+
+Nota: na alinea c) é para implementar numeros negativos a
+para isso é necessário ir à  gramatica, e e acrescentar na maior de
+precedencia este novo atributo da calculadora, "        op=('+'|'-') expr           #ExprUnario"
+depois, voltar a criar um antlr4-visitor para criar um novo Interpreter (como so é uma nova funcao podemos fazer antes
+antlr4-build e ir ao CalculatorVisitorBase.java buscar a nova funcao relatica ao # que esta na gramatica, e colar a inicialiacao da funcao
+no Interpreter e implementar aí a funcao, neste caso, quando op = '-' o numero fica negativo)
