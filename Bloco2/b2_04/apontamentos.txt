@@ -1,0 +1,14 @@
+basicamente é ir copiar a gramatica d b2_02
+e trocar o 
+expr expr op=('*'|'/'|'+'|'-')  #ExprSuffix 
+
+por
+op=('*'|'/'|'+'|'-') expr expr #ExprPrefix 
+
+depois 
+antlr4-visitor PrefixCalculator Interpreter Double
+antlr4-main -v Interpreter.java -i
+
+e ir ao Interpreter.java fazer a calculadora SPOILER é igual à do b2_02
+antlr4-build
+antlr4-run

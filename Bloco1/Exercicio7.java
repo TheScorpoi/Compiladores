@@ -1,4 +1,4 @@
-package Aula01;
+package Bloco1;
 
 public class Exercicio7 {
     
