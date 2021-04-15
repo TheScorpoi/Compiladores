@@ -6,9 +6,10 @@ stat:
     expr? NEWLINE
     ;                               //optative expr
 expr:
-    expr expr op=('*'|'/'|'+'|'-')  //ExprSuffic | ExprNumber
-    | Number 
+    expr expr op=('*'|'/'|'+'|'-')  #ExprSuffix 
+    | Number                        #ExprNumber
+    
     ;                                        
 Number: [0-9]+('.'[0-9]+)?;
 NEWLINE: '\r'? '\n';
-WS: [ \t]+-> skip; 
+WS: [ \t]+-> skip;

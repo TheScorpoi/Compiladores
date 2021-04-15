@@ -1,4 +1,4 @@
-// Generated from /home/sobral/Desktop/2SEMESTRE/Compiladores/Bloco2/b2_02/SuffixCalculator.g4 by ANTLR 4.8
+// Generated from SuffixCalculator.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class SuffixCalculatorParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.9.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -100,6 +100,19 @@ public class SuffixCalculatorParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_program; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).enterProgram(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitProgram(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SuffixCalculatorVisitor ) return ((SuffixCalculatorVisitor<? extends T>)visitor).visitProgram(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProgramContext program() throws RecognitionException {
@@ -147,6 +160,19 @@ public class SuffixCalculatorParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_stat; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).enterStat(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SuffixCalculatorVisitor ) return ((SuffixCalculatorVisitor<? extends T>)visitor).visitStat(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final StatContext stat() throws RecognitionException {
@@ -195,6 +221,19 @@ public class SuffixCalculatorParser extends Parser {
 	public static class ExprNumberContext extends ExprContext {
 		public TerminalNode Number() { return getToken(SuffixCalculatorParser.Number, 0); }
 		public ExprNumberContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).enterExprNumber(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitExprNumber(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SuffixCalculatorVisitor ) return ((SuffixCalculatorVisitor<? extends T>)visitor).visitExprNumber(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class ExprSuffixContext extends ExprContext {
 		public Token op;
@@ -205,6 +244,19 @@ public class SuffixCalculatorParser extends Parser {
 			return getRuleContext(ExprContext.class,i);
 		}
 		public ExprSuffixContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).enterExprSuffix(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitExprSuffix(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SuffixCalculatorVisitor ) return ((SuffixCalculatorVisitor<? extends T>)visitor).visitExprSuffix(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ExprContext expr() throws RecognitionException {
