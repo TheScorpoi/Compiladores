@@ -1,7 +1,7 @@
 # Compiladores
 Aulas Práticas de Compiladores
 
-## Para correr os programas:
+## Para correr os programas do Bloco2:
 
 ```
 antlr4-build
@@ -12,4 +12,4 @@ Por uma questão de não encher o repositório com muitos ficheiro de cada exerc
 ```
 antlr4-clean
 ```
-Apaga todos os ficheiros que o antlr4-build
+Apaga todos os ficheiros que o antlr4-build cria
