@@ -1,112 +1,86 @@
+import java.lang.Math;
 
 public class Fraction {
 
-    private int numerator;
-    private int denominator;
+    int numerator;
+    int denominator;
 
-
-    public Fraction(int numerator, int denominator) {
-        this.numerator = numerator;
-        this.denominator = denominator;
+    public Fraction(int numr, int denr) {
+        numerator = numr;
+        denominator = denr;
+        reduce();
     }
 
     public int getNumerator() {
-        return this.numerator;
-    }
-
-    public void setNumerator(int numerator) {
-        this.numerator = numerator;
+        return numerator;
     }
 
     public int getDenominator() {
-        return this.denominator;
+        return denominator;
     }
 
-    public void setDenominator(int denominator) {
-        this.denominator = denominator;
-    }
-
-    public Fraction sume(Fraction f) {
-        int numerator_tmp = f.getNumerator();
-        int denominator_tmp = f.getDenominator();
-
-        int num2 = greatestCommomDivisor(this.denominator, denominator_tmp);
-        num2 = (this.denominator * denominator_tmp) / num2;
-        int num1 = this.numerator * (num2 / this.denominator) + numerator_tmp + (num2 / denominator_tmp);
-        return new Fraction(num1, num2);
-    }
-
-    public Fraction subtraction(Fraction f) {
-        int numerator_tmp = f.getNumerator();
-        int denominator_tmp = f.getDenominator();
-
-        int num2 = greatestCommomDivisor(this.denominator, denominator_tmp);
-        num2 = (this.denominator * denominator_tmp) / num2;
-        int num1 = this.numerator * (num2 / this.denominator) - numerator_tmp + (num2 / denominator_tmp);
-        return new Fraction(num1, num2);
-    }
-    
-    public Fraction multiplication(Fraction f) {
-        int numerator_tmp = f.getNumerator();
-        int denominator_tmp = f.getDenominator();
-
-        int num1 = this.numerator * numerator_tmp;
-        int num2 = this.denominator * denominator_tmp;
-        return new Fraction(num1, num2);
-    }
-
-    public Fraction division(Fraction f) {
-        int numerator_tmp = f.getNumerator();
-        int denominator_tmp = f.getDenominator();
-
-        Fraction fractionTmp = new Fraction(denominator_tmp, numerator_tmp);
-        return multiplication(fractionTmp);
-    }
-
-    public Fraction reduce() {
-        int divideBy = greatestCommomDivisor(numerator, denominator);
-        int num1 = numerator / divideBy;
-        int num2 = denominator / divideBy;
-        return new Fraction(num1, num2);
-    }
-
-    public int greatestCommomDivisor(int num1, int num2) {
-        if (num2 == 0) {
-            return num1;
+    public int calculateGCD(int numerator, int denominator) {
+        if (numerator % denominator == 0) {
+            return denominator;
         }
-        return greatestCommomDivisor(num2, num1%num2);
+        return calculateGCD(denominator, numerator % denominator);
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + denominator;
-        result = prime * result + numerator;
+    /**
+     * Reduce the fraction to lowest form
+     */
+    void reduce() {
+        int gcd = calculateGCD(numerator, denominator);
+        numerator /= gcd;
+        denominator /= gcd;
+    }
+
+    public Fraction add(Fraction fractionTwo) {
+        int numer = (numerator * fractionTwo.getDenominator()) + (fractionTwo.getNumerator() * denominator);
+        int denr = denominator * fractionTwo.getDenominator();
+        return new Fraction(numer, denr);
+    }
+
+    public Fraction subtract(Fraction fractionTwo) {
+        int newNumerator = (numerator * fractionTwo.denominator) - (fractionTwo.numerator * denominator);
+        int newDenominator = denominator * fractionTwo.denominator;
+        Fraction result = new Fraction(newNumerator, newDenominator);
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Fraction other = (Fraction) obj;
-        if (denominator != other.denominator)
-            return false;
-        if (numerator != other.numerator)
-            return false;
-        return true;
+
+    public Fraction multiply(Fraction fractionTwo) {
+        int newNumerator = numerator * fractionTwo.numerator;
+        int newDenominator = denominator * fractionTwo.denominator;
+        Fraction result = new Fraction(newNumerator, newDenominator);
+        return result;
     }
 
+
+    public Fraction divide(Fraction fractionTwo) {
+        int newNumerator = numerator * fractionTwo.getDenominator();
+        int newDenominator = denominator * fractionTwo.numerator;
+        Fraction result = new Fraction(newNumerator, newDenominator);
+        return result;
+    }
+
+    public Fraction powtencia(Fraction frac){
+        int newNumerator=numerator;
+        int newDenominator=denominator;
+        
+        for (int i = 0; i < frac.numerator-1; i++) {
+            newNumerator = newNumerator * numerator;
+            newDenominator = newDenominator * denominator;
+        }
+        
+        Fraction result = new Fraction(newNumerator, newDenominator);
+        return result;
+
+    }
+
+    
     @Override
     public String toString() {
-        if (denominator == 1) {
-            return String.valueOf(numerator);
-        }
-        return numerator + "/" + denominator; 
+        return this.numerator + "/" + this.denominator;
     }
 }

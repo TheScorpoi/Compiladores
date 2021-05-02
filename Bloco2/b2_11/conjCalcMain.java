@@ -2,7 +2,7 @@ import java.util.Scanner;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
-public class FractionalCalculatorMain {
+public class conjCalcMain {
    public static void main(String[] args) {
       try {
          Scanner sc = new Scanner(System.in);
@@ -10,16 +10,16 @@ public class FractionalCalculatorMain {
          int numLine = 1;
          if (sc.hasNextLine())
             lineText = sc.nextLine();
-         FractionalCalculatorParser parser = new FractionalCalculatorParser(null);
+         conjCalcParser parser = new conjCalcParser(null);
          // replace error listener:
          //parser.removeErrorListeners(); // remove ConsoleErrorListener
          //parser.addErrorListener(new ErrorHandlingListener());
-         Interpreter visitor0 = new Interpreter();
+         Execute visitor0 = new Execute();
          while(lineText != null) {
             // create a CharStream that reads from standard input:
             CharStream input = CharStreams.fromString(lineText + "\n");
             // create a lexer that feeds off of input CharStream:
-            FractionalCalculatorLexer lexer = new FractionalCalculatorLexer(input);
+            conjCalcLexer lexer = new conjCalcLexer(input);
             lexer.setLine(numLine);
             lexer.setCharPositionInLine(0);
             // create a buffer of tokens pulled from the lexer:
