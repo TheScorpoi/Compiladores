@@ -29,18 +29,6 @@ public class RadioQuestion extends JPanel implements ActionListener{
 	JButton next=new JButton("Next");
 	JButton finish=new JButton("Finish");
 	
-	/*public static void main(String args[]){
-		JFrame frame=new JFrame("RadioButton Test");
-		frame.setSize(400,300);
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		frame.setResizable(true);
-		
-		String[] answers={"wrong1","right","wrong2"};
-		frame.add(new RadioQuestion("what's right?",answers,1));
-		
-		frame.setVisible(true);
-	}*/
-	
 	public RadioQuestion(String q, String[] options, int ans, Quiz quiz){
 		this.quiz=quiz;
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
