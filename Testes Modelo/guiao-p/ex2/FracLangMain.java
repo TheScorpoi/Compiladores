@@ -1,11 +1,13 @@
 import java.util.Scanner;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class FracLangMain {
    public static void main(String[] args) {
       try {
-         Scanner sc = new Scanner(System.in);
+         Scanner sc = new Scanner(new File(args[0]));
          String lineText = null;
          int numLine = 1;
          if (sc.hasNextLine())
@@ -43,6 +45,8 @@ public class FracLangMain {
       catch(RecognitionException e) {
          e.printStackTrace();
          System.exit(1);
+      } catch (FileNotFoundException e) {
+         System.err.println("ERRO: Ficheiro nao encontrado");
       }
    }
 }

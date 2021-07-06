@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Interpreter extends StrLangBaseVisitor<String> {
 
    Map<String, String> assignmentMap = new HashMap<>();
+   private Scanner sc = new Scanner(System.in);
 
    @Override
    public String visitProgram(StrLangParser.ProgramContext ctx) {
@@ -53,13 +54,11 @@ public class Interpreter extends StrLangBaseVisitor<String> {
       }
 
       if (ctx.input() != null) {
-         Scanner sc = new Scanner(System.in);
          String input = ctx.input().TEXT().getText();
          input = input.replace("\"", "");
          System.out.println(input);
          String value = null;
-         value = sc.next();
-         System.out.println("AQUI2");
+         value = sc.nextLine();
          assignmentMap.put(id, value);
       
       }

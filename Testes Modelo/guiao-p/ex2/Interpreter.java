@@ -1,10 +1,11 @@
 import java.util.*;
 
-public class Interpreter extends FracLangBaseVisitor<Object> {
-   Map<String, Object> assignmentMap = new HashMap<>();
+public class Interpreter extends FracLangBaseVisitor<Fraction> {
+   
+   Map<String, Fraction> assignmentMap = new HashMap<>();
 
    @Override
-   public Object visitStat(FracLangParser.StatContext ctx) {
+   public Fraction visitStat(FracLangParser.StatContext ctx) {
       if (ctx.display() != null) {
          visit(ctx.display());
       } else if (ctx.assignment() != null) {
@@ -16,40 +17,42 @@ public class Interpreter extends FracLangBaseVisitor<Object> {
    }
 
    @Override
-   public Object visitExprParen(FracLangParser.ExprParenContext ctx) {
+   public Fraction visitExprParen(FracLangParser.ExprParenContext ctx) {
       return visit(ctx.expr());
    }
 
    @Override
-   public Object visitExprUnario(FracLangParser.ExprUnarioContext ctx) {
-      Object value = visit(ctx.expr());
+   public Fraction visitExprUnario(FracLangParser.ExprUnarioContext ctx) {
+      Fraction value = visit(ctx.expr());
+      int num = 0;
       if (ctx.op != null && ctx.op.getText().equals("-")) {
-         value = -value;
+         num = -value.getNumerator();
       }
-      return value;
+      return new Fraction(num, value.getDenominator());
    }
 
    @Override
-   public Object visitExprNumber(FracLangParser.ExprNumberContext ctx) {
-      return ctx.NUMBER().getText();
+   public Fraction visitExprNumber(FracLangParser.ExprNumberContext ctx) {
+      int num = Integer.parseInt(ctx.NUMBER().getText());
+      return new Fraction(num, 1);
    }
 
    @Override
-   public Object visitExprMultDiv(FracLangParser.ExprMultDivContext ctx) {
-      Object result = null;
-      Objec e1 = visit(ctx.expr(0));
-      Objec e2 = visit(ctx.expr(1));
+   public Fraction visitExprMultDiv(FracLangParser.ExprMultDivContext ctx) {
+      Fraction result = null;
+      Fraction e1 = visit(ctx.expr(0));
+      Fraction e2 = visit(ctx.expr(1));
       if (e1 != null && e2 != null) {
          String op = ctx.op.getText();
          switch (op) {
             case "*":
-               result = e1 + e2;
+               result = e1.mult(e2);
                break;
             case ":":
-               if (e1 == 0) {
+               if (e2.getDenominator() == 0) {
                   System.err.println("ERRO: Divisao por zero");
                } else {
-                  result = e1 - e2;
+                  result = e1.div(e2);
                }
                break;
          }
@@ -61,47 +64,57 @@ public class Interpreter extends FracLangBaseVisitor<Object> {
    }
 
    @Override
-   public Object visitExprID(FracLangParser.ExprIDContext ctx) {
-      if (assignmentMap.get(ctx.ID().getText()) == null) {
+   public Fraction visitExprID(FracLangParser.ExprIDContext ctx) {
+      if (!assignmentMap.containsKey(ctx.ID().getText())) {
          System.err.println("ERRO: Variavel \"" + ctx.ID().getText() + "\" nao declarada");
-         System.exit(0);
+         System.exit(1);
       }
       return assignmentMap.get(ctx.ID().getText());
+
    }
 
    @Override
-   public Object visitExprFraction(FracLangParser.ExprFractionContext ctx) {
-      Object op1 = ctx.NUMBER(0).getText();
-      Object op2 = ctx.NUMBER(1).getText();
-      Object value = op1 + "/" + op2;
-      return value;
+   public Fraction visitExprFraction(FracLangParser.ExprFractionContext ctx) {
+      int num = Integer.parseInt(ctx.NUMBER(0).getText());
+      int dem = Integer.parseInt(ctx.NUMBER(1).getText());
+      if (dem == 0) {
+         System.err.println("ERRO: Divisao por zero");
+         System.exit(1);
+      }
+      return new Fraction(num, dem);
    }
 
    @Override
-   public Object visitExprSomaSub(FracLangParser.ExprSomaSubContext ctx) {
-      Object result = null;
-      Objec e1 = visit(ctx.expr(0));
-      Objec e2 = visit(ctx.expr(1));
+   public Fraction visitExprReduce(FracLangParser.ExprReduceContext ctx) {
+      Fraction result = visit(ctx.expr());
+      result.reduce();
+      return result;
+   }
+   
+   @Override
+   public Fraction visitExprSomaSub(FracLangParser.ExprSomaSubContext ctx) {
+      Fraction result = null;
+      Fraction e1 = visit(ctx.expr(0));
+      Fraction e2 = visit(ctx.expr(1));
       if (e1 != null && e2 != null) {
          String op = ctx.op.getText();
          switch (op) {
             case "+":
-               result = e1 + e2;
+               result = e1.add(e2);
                break;
             case "-":
-               result = e1 - e2;
+               result = e1.sub(e2);
                break;
          }
       } else {
          System.err.println("ERRO: Passadas expressoes nulas");
       }
-
       return result;
    }
 
    @Override
-   public Object visitDisplay(FracLangParser.DisplayContext ctx) {
-      Object value = visit(ctx.expr());
+   public Fraction visitDisplay(FracLangParser.DisplayContext ctx) {
+      Fraction value = visit(ctx.expr());
       if (value != null) {
          System.out.println(value);
       }
@@ -109,9 +122,9 @@ public class Interpreter extends FracLangBaseVisitor<Object> {
    }
 
    @Override
-   public Object visitAssignment(FracLangParser.AssignmentContext ctx) {
+   public Fraction visitAssignment(FracLangParser.AssignmentContext ctx) {
       String id = ctx.ID().getText();
-      Object value = visit(ctx.expr());
+      Fraction value = visit(ctx.expr());
       if (id != null && value != null) {
          assignmentMap.put(id, value);
       }

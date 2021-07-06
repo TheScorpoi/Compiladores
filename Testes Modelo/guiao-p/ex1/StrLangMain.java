@@ -1,11 +1,17 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 public class StrLangMain {
    public static void main(String[] args) {
       try {
-         Scanner sc = new Scanner(System.in);
+         if (args.length == 0) {
+            System.err.println("ERRO: Nao foram passados arguemtnos");
+         }
+         Scanner sc = new Scanner(new File(args[0]));
          String lineText = null;
          int numLine = 1;
          if (sc.hasNextLine())
@@ -40,9 +46,12 @@ public class StrLangMain {
             numLine++;
          }
       }
-      catch(RecognitionException e) {
+      catch (RecognitionException e) {
          e.printStackTrace();
          System.exit(1);
+      }
+      catch (FileNotFoundException e) {
+         System.err.println("ERRO: Ficheiro nao encontrado");
       }
    }
 }

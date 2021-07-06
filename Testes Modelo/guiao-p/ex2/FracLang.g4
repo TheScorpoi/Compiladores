@@ -10,9 +10,10 @@ stat :
 
 expr:
      op=('+'|'-') expr              #ExprUnario
-    | expr op=('+'|'-') expr        #ExprSomaSub
     | expr op=('*'|':') expr        #ExprMultDiv
+    | expr op=('+'|'-') expr        #ExprSomaSub
     | '(' expr ')'                  #ExprParen
+    | 'reduce' expr                 #ExprReduce
     | NUMBER '/' NUMBER             #ExprFraction
     | NUMBER                        #ExprNumber
     | ID                            #ExprID
