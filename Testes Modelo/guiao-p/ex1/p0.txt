@@ -3,4 +3,14 @@ print "Bom Dia"
 t1: "Miguel"
 print t1
 t2 : input("Nome: ")
-print t2
+print t2                       // escreve na consola o conteúdo da expressão t1
+                               // na consola
+print (t1/"i"/"iii") 
+print t1+" "+t2 
+print "ab" + "v"
+print "abc" - "c"
+print "abc" - "d"
+
+t1: trim"  "+(t1 - "igu")+" "  // resultado: "Mel"
+print t1 
+
