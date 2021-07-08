@@ -22,7 +22,7 @@ print : 'print' expr ;
 assignment: ID ':' expr;
 
 TEXT: '"' .*? '"';
-ID: [a-zA-Z.0-9]+ ;
+ID: [a-zA-Z0-9]+ ;
 INPUT : '"' .*? '"' ;
 COMMENT: '//' .*? '\n' -> skip ; 
 WS: [ \t\r\n]+ -> skip;
